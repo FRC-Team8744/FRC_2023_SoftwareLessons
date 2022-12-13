@@ -33,13 +33,34 @@
         m_spinner.setMotor(m_setpoint);
     }
 ```
-13. In DisableSpinner, add the following to execute() and end():
+13. In DisableSpinner, add the following to end() and set return for isFinished() to true:
 ```
-    public void execute() {
+    public void end(boolean interrupted) {
         m_spinner.stopMotor();
     }
 ```
-14. Build, Deploy, **Test**
+14. In Drivetrain: Create methods to send direction and speed updates to the motors.
+```
+    // Put methods for controlling this subsystem here
+    public void teleop(double throttle, double steering) {
+        diffDrive.arcadeDrive(throttle, steering);
+    }
+
+    public void stop() {
+        diffDrive.arcadeDrive(0.0, 0.0);
+    }
+```
+15. In the Teleop command, send the joystick signals to the drivetrain:
+```
+// Add to execute()
+double throttle = RobotContainer.getInstance().getJoystick1().getY();
+double steering = RobotContainer.getInstance().getJoystick1().getX();
+m_drivetrain.teleop(throttle, steering);
+
+// Add to end()
+m_drivetrain.teleop(0.0, 0.0);
+```
+16. Build, Deploy, **Test**
 
 ## Test debug code
 15. Modify the Spinner subsystem to include the debug code shown in FRC_2023_SoftwareLessons\Lesson06_files (or just copy over Spinner.java).
