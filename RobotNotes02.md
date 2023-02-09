@@ -5,8 +5,10 @@
 ## General
 1. I updated your laptop and the driver's station to the latest VS Code compiler, but it doesn't fix the problem of the joysticks not being recognized when starting the driver station.
 
-## Debug of teleop
+## Debug of teleop and arm motors
 1. I tested the software on Wednesday - the joystick axies for throttle and steering need adjustment.  The throttle was inverted and you need to change the steering joystick axis to X instead of the twist around Z.
+2. Add code to set the current limit in Amps to the arm,wrist,gripper, and elevator.  The function is named setSmartCurrentLimit​(int limit).  Set the NEO550s (the little ones) to 10 Amps and set the NEOs to 20 Amps. This should limit how much they jump around when you push the buttons.
+3. Add code to turn off the arm, wrist, gripper, and elevator motors when the command finishes (stopMotor).
 
 ## Debug of AutonomousCommand
 1. The last I saw, this "kind of" worked - in that it stopped after the wheels turned for a while.  That's good.  Add on in small, testable increments.
